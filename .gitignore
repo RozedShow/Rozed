@@ -442,6 +442,4 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-WebApp/wwwroot/js/bundle.js
 WebApp/wwwroot/js/bundle.js.map
-WebApp/wwwroot/js/css/bundle.css
