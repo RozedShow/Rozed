@@ -1,0 +1,19 @@
+[Unit]
+Description="Gran image board"
+
+[Service]
+WorkingDirectory=/home/rozed/WebApp
+ExecStart=/usr/bin/dotnet run
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=2
+KillSignal=SIGINT
+SyslogIdentifier=rozed-syid
+User=root
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+Environment=ConnectionStrings__DefaultConnection\x3dServer\x3d127.0.0.1\x3bPort\x3d5432\x3bDatabase\x3dRozed\x3bUser\x20Id\x3dpostgres\x3bPassword\x3djejetabien\x3b
+Environment=urls=http://localhost:5000
+
+[Install]
+WantedBy=multi-user.target
