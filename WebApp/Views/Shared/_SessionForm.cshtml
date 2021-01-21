@@ -1,0 +1,22 @@
+@model RegistroVM
+
+<div class="sombra" style="visibility:hidden;">
+    <form  
+        id="crear-sesion" 
+        class="formulario crear-hilo panel"
+        onsubmit="FormHilo.crearHilo(event)"
+    >
+
+        <span asp-validation-for="Nick"></span>
+        <input asp-for="Nick" placeholder="Nick">
+      
+        <span asp-validation-for="Contraseña"></span>
+        <input type="password" asp-for="Contraseña" placeholder="Contraseña">
+
+        <div class="errores-extra">
+            
+        </div>
+        <button class="btn" onclick="FormSesion.registrarse(event)">Comenzar</button>
+    </form>
+
+</div>

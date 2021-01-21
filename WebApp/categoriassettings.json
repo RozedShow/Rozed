@@ -1,0 +1,195 @@
+{
+    "Categorias": [{
+        "Id": 1,
+        "Nombre": "General",
+        "NombreCorto": "GNRL",
+        "Nsfw": false
+    }, {
+        "Id": 2,
+        "Nombre": "Ay no se",
+        "NombreCorto": "AYNS",
+        "Nsfw": false
+    }, {
+    }, {
+        "Id": 3,
+        "Nombre": "Arte",
+        "NombreCorto": "ART",
+        "Nsfw": false
+    }, {
+        "Id": 4,
+        "Nombre": "Cine y TV",
+        "NombreCorto": "TV",
+        "Nsfw": false
+    }, {
+        "Id": 5,
+        "Nombre": "Consejos",
+        "NombreCorto": "CON",
+        "Nsfw": false
+    }, {
+        "Id": 6,
+        "Nombre": "Conspiraciones",
+        "NombreCorto": "((()))",
+        "Nsfw": false
+    }, {
+        "Id": 7,
+        "Nombre": "Desarrollo personal",
+        "NombreCorto": "DESP",
+        "Nsfw": false
+    }, {
+        "Id": 8,
+        "Nombre": "Hágalo usted mismo",
+        "NombreCorto": "DIY",
+        "Nsfw": false
+    }, {
+        "Id": 9,
+        "Nombre": "Naturaleza",
+        "NombreCorto": "NAT",
+        "Nsfw": false
+    }, {
+        "Id": 10,
+        "Nombre": "Jueguito",
+        "NombreCorto": "JUE",
+        "Nsfw": false
+    }, {
+        "Id": 11,
+        "Nombre": "Humor",
+        "NombreCorto": "JIJO",
+        "Nsfw": false
+    }, {
+        "Id": 12,
+        "Nombre": "Literatura",
+        "NombreCorto": "LIT",
+        "Nsfw": false
+    }, {
+        "Id": 13,
+        "Nombre": "Musica",
+        "NombreCorto": "MUS",
+        "Nsfw": false
+    }, {
+        "Id": 14,
+        "Nombre": "Omniverso",
+        "NombreCorto": "O3P",
+        "Nsfw": false
+    }, {
+        "Id": 15,
+        "Nombre": "Paranormal",
+        "NombreCorto": "PAR",
+        "Nsfw": false
+    },{
+        "Id": 16,
+        "Nombre": "DaPedotita",
+        "NombreCorto": "DEP",
+        "Nsfw": false
+    }, {
+        "Id": 17,
+        "Nombre": "Politica",
+        "NombreCorto": "POL",
+        "Nsfw": false
+    },{
+        "Id": 18,
+        "Nombre": "Preguntas",
+        "NombreCorto": "PRGS",
+        "Nsfw": false
+    }, {
+        "Id": 19,
+        "Nombre": "Putaku",
+        "NombreCorto": "PTKU",
+        "Nsfw": false
+    }, {
+        "Id": 20,
+        "Nombre": "Reinas",
+        "NombreCorto": "RS",
+        "Nsfw": false
+    }, {
+        "Id": 21,
+        "Nombre": "Redes",
+        "NombreCorto": "RDS",
+        "Nsfw": false
+    },{
+        "Id": 22,
+        "Nombre": "ROZED",
+        "NombreCorto": "RZD",
+        "Nsfw": false
+    }, {
+        "Id": 23,
+        "Nombre": "Tecnologia",
+        "NombreCorto": "TEC",
+        "Nsfw": false
+    }, {
+        "Id": 24,
+        "Nombre": "Videos",
+        "NombreCorto": "VID",
+        "Nsfw": false
+    }, {
+        "Id": 25,
+        "Nombre": "Virgo historias",
+        "NombreCorto": "VHIS",
+        "Nsfw": false
+    },{
+        "Id": 26,
+        "Nombre": "Umitas",
+        "NombreCorto": "UMA",
+        "Nsfw": false
+    }, {
+        "Id": 27,
+        "Nombre": "Borno",
+        "NombreCorto": "BAJA",
+        "Nsfw": true
+    }
+    , {
+        "Id": 28,
+        "Nombre": "Hentai",
+        "NombreCorto": "HEN",
+        "Nsfw": true
+    }, {
+        "Id": 29,
+        "Nombre": "Economia",
+        "NombreCorto": "ECO",
+        "Nsfw": false
+    }, {
+        "Id": 30,
+        "Nombre": "Humanidades",
+        "NombreCorto": "HUMA",
+        "Nsfw": false
+    }, {
+        "Id": 31,
+        "Nombre": "Morfi",
+        "NombreCorto": "MRFI",
+        "Nsfw": false
+    },{
+        "Id": 32,
+        "Nombre": "Noticias",
+        "NombreCorto": "NOTI",
+        "Nsfw": false
+    },{
+        "Id": 33,
+        "Nombre": "Descargas",
+        "NombreCorto": "DESC",
+        "Nsfw": false
+    },{
+        "Id": 34,
+        "Nombre": "Homo",
+        "NombreCorto": "HOMO",
+        "Nsfw": true
+    },{
+        "Id": 35,
+        "Nombre": "Ciencia",
+        "NombreCorto": "CIEN",
+        "Nsfw": false
+    },{
+        "Id": 36,
+        "Nombre": "Autito brum brum",
+        "NombreCorto": "AUTO",
+        "Nsfw": false
+    },{
+        "Id": 37,
+        "Nombre": "Salud",
+        "NombreCorto": "SLD",
+        "Nsfw": false
+    },{
+        "Id": 38,
+        "Nombre": "Programacion",
+        "NombreCorto": "PROG",
+        "Nsfw": false
+    }]
+}

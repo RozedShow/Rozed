@@ -1,0 +1,27 @@
+@page "/Administracion/CambiarContraseña"
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Customer Form</title>
+    </head>
+    <body>
+      <form method="post" action="/Administracion/CambiarContraseña" >
+        @Html.AntiForgeryToken()
+        <fieldset>
+          <legend>Add Customer</legend>
+          <div>
+            <label for="contraseñaVieja">Contraseña vieja:</label>
+            <input type="password" name="contraseñaVieja" value="" />
+          </div>
+          <div>
+            <label for="contraseñaNueva">Contraseña nueva</label>
+            <input type="password" name="contraseñaNueva" value="" />
+          </div>
+          <div>
+            <label>&nbsp;</label>
+            <input type="submit" value="Cambiar" class="submit" />
+          </div>
+        </fieldset>
+      </form>
+    </body>
+</html>

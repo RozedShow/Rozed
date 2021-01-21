@@ -1,0 +1,100 @@
+@inject IOptionsSnapshot<GeneralOptions> opts
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocamo</title>
+</head>
+<body>
+    <div class="mensaje">
+       @opts.Value.MensajePaginaDeChoque
+    </div>
+    <img src="imagenes/chocamo.jpg" width="100%;min-width:500px" alt="">
+    <audio src="audio/chocamo.mp3" autoplay></audio>
+
+    <div class="audioPrompt" style="display: none;">
+        <h1>Rozed quiere reproducir sonido</h1>
+        <button onclick="playAudio()">Permitir</button>
+    </div>
+</body>
+
+<script>
+
+async function inicio () {
+        console.log("uuf");
+        try {
+            await playAudio()
+            document.querySelector(".audioPrompt").style.visibility = "none"
+        } catch (error) {
+            console.log(error);
+            document.querySelector(".audioPrompt").style.display = "flex"
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded",() => inicio())
+
+    
+    
+    function playAudio() {
+        // let audioPrompt = document.querySelector(".audioPrompt");
+        // audioPrompt.style.display = "none"
+        document.querySelector(".audioPrompt").style.display = "none"
+        let audioElement = document.querySelector('audio')
+
+        audioElement.onended = () => {
+            console.log("jejessklj");
+            audioElement.setAttribute("src", "audio/queHicieronCarajo.mp3")
+            audioElement.play()
+        }
+        return document.querySelector('audio').play()
+    }
+</script>
+
+<style>
+    body {
+        margin: 0;
+        background: #cc1d24;
+    }
+    img {
+        position: fixed;
+        max-height: 100vh;
+        bottom: 0;
+        animation: ani 0.1s infinite;
+    }
+
+    .audioPrompt {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        background: #000000f5;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        color: white;
+    }
+
+    @@keyframes ani {
+        0% { transform: translateX(10px);}
+        50% { transform: translateX(-10px);}
+        100% { transform: translateX(10px);}
+    }
+    .mensaje {
+        background: #17212be6;
+        color: white;
+        font-family: none;
+        font-size: 24px;
+        text-align: center;
+        padding: 10px;
+        z-index: 16;
+        position: relative;
+        border-radius: 0 0 8px 8px;
+        white-space: pre-wrap;
+    }
+</style>
+</html>

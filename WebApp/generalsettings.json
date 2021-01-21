@@ -1,0 +1,22 @@
+{
+  "General": {
+    "LimiteBump": 500,
+    "HilosMaximosPorCategoria": 50,
+    "ModoPrivado": true,
+    "TiempoEntreComentarios": 2,
+    "TiempoEntreHilos": 150,
+    "LimiteArchivo": 0,
+    "RegistroAbierto": true,
+    "NumeroMaximoDeCuentasPorIp": 4,
+    "LinkDeInvitacion": "B193UL4W",
+    "RestriccionDeAcceso": 0,
+    "MensajePaginaDeChoque": "Tinelli se meti\u00F3 en el orto a los meedz, tuvimos que cerrar rozed",
+    "ModoMessi": false,
+    "ModoSerenito": false,
+    "CaptchaHilo": false,
+    "CaptchaComentario": false,
+    "CaptchaRegistro": true,
+    "Flags": "",
+    "Version": "1.8.7F4"
+  }
+}

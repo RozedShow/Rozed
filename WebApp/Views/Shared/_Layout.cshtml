@@ -1,0 +1,203 @@
+﻿@using Microsoft.Extensions.Configuration;
+@using Microsoft.Extensions.DependencyInjection;
+@using Microsoft.AspNetCore.Hosting;
+@using Microsoft.Extensions.Hosting
+@using Microsoft.AspNetCore.SignalR;
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@inject RChanContext _context;
+@inject IOptions<List<Categoria>> categoriasOpt;
+@inject IConfiguration config;
+@inject IOptionsSnapshot<GeneralOptions> generalOptions
+@inject IWebHostEnvironment env
+@inject EstadisticasService estadisticasService
+
+@{
+    var version = generalOptions.Value.Version;
+}
+<!DOCTYPE html>
+<html xml:lang="es" lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script>window.token = "@Xsrf.GetAndStoreTokens(Context).RequestToken"</script>
+    <script defer src="~/js/bundle.js?v=@version"></script>
+    <meta charset="utf-8" />
+    @* <meta name="viewport" content="width=device-width, initial-scale=1.0" /> *@
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <meta name="description" content="Rozed, el mejor imich board del mundo incluso de Paraguay">
+
+    <title>ROZED @ViewData["Title"]</title>
+    @* <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_o5hd5vvqpoqiwwmi.css"> *@
+
+            <!-- ICONOS -->
+    @* <link rel="stylesheet" href="https://cdn.rawgit.com/luizbills/feather-icon-font/v4.7.0/dist/feather.css"> *@
+    <link rel="stylesheet" href="~/iconos/iconos.css?v=@version" />
+    <link rel="stylesheet" href="~/css/site.css?v=@version" />
+    <link rel="stylesheet" href="~/js/css/bundle.css?v=@version" />
+
+    <style id="skin"></style>
+
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+
+
+    @{
+        UsuarioModel user = null;
+        if (Context.User != null)
+        {
+            // The example uses base class, IdentityUser, yours may be called 
+            // ApplicationUser if you have added any extra fields to the model
+            var userManager = Context.RequestServices
+                .GetRequiredService<UserManager<UsuarioModel>>();
+            var signInManager = Context.RequestServices
+                .GetRequiredService<SignInManager<UsuarioModel>>();
+
+            user = await userManager.GetUserAsync(Context.User);
+
+            if(user is null)
+            {
+                await signInManager.SignOutAsync();
+                Context.User = null;
+            }
+
+            if(signInManager.IsSignedIn(Context.User))
+            {
+                await signInManager.RefreshSignInAsync(user);
+            }
+        }
+
+    }
+
+    @{
+        string GenerarUserName(string username) 
+        {
+            if(username is null) return null;
+
+            if(username.Contains("Anon.")) {
+                username = "Anon" ;
+            }
+            return username;
+        }
+        var globalState = new {
+            Usuario = new {
+                EstaAutenticado = User.Identity.IsAuthenticated,
+                UserName = GenerarUserName(User.Identity.Name),
+                @* Role = User.Claims.FirstOrDefault(c => c.ValueType == "Role").Value, *@
+                EsAdmin = User.EsAdmin(),
+                EsMod = User.EsMod(),
+                EsAuxiliar = User.EsAuxiliar(generalOptions.Value.ModoSerenito),
+                TieneToken = !string.IsNullOrWhiteSpace(user?.Token)
+            }
+        };
+
+
+        var gnrlOpt = (GeneralPublicOptions)  generalOptions.Value;
+        var configurafionPublica = new {
+            Categorias = categoriasOpt.Value,
+            HCaptchaSiteKey = config.GetValue<string>("HCaptcha:SiteKey"),
+            General =  new {
+                gnrlOpt.TiempoEntreComentarios,
+                gnrlOpt.TiempoEntreHilos,
+                gnrlOpt.LimiteArchivo,
+                gnrlOpt.RegistroAbierto,
+                gnrlOpt.CaptchaHilo,
+                gnrlOpt.CaptchaComentario,
+                gnrlOpt.CaptchaRegistro,
+                gnrlOpt.Version,
+                gnrlOpt.ModoMessi,
+                gnrlOpt.ModoSerenito,
+                gnrlOpt.Flags,
+
+            } 
+        };
+
+        var estadisticas = new {
+            computadorasConectadas = RChanHub.NumeroDeUsuariosConectados
+        };
+    }
+    
+    @{
+        List<DenunciaModel> denuncias = null;
+        if ((User?.EsAuxiliar(gnrlOpt.ModoSerenito) ?? false) || (User?.EsMod() ?? false)) {
+            denuncias =  await _context.Denuncias
+            .Where(d => d.Estado == EstadoDenuncia.NoRevisada)
+            .OrderByDescending(d => d.Creacion)
+            .Take(100)
+            .Include(d => d.Hilo)
+            .Include(d => d.Usuario)
+            .Include(d => d.Comentario)
+            .Include(d => d.Comentario.Media)
+            .Include(d => d.Comentario.Usuario)
+            .Include(d => d.Hilo.Media)
+            .Include(d => d.Hilo.Usuario)
+            .ToListAsync();
+        }
+    }
+    <script>
+        window.config = @Json.Serialize(configurafionPublica)
+        window.globalState = @Json.Serialize(globalState)
+
+        window.denuncias = @Json.Serialize(denuncias);
+        window.estadisticas = @Json.Serialize(await estadisticasService.GetEstadisticasAsync());        
+    </script>
+
+</head>
+<body>
+
+    <environment names="Development">
+        <strong>Modo desarrollo</strong>
+    </environment>
+    @* <div class="debug">
+        <p>Esta Autenticado: @User.Identity.IsAuthenticated</p>
+        @foreach (var cliam in User.Claims)
+        {
+            <p>@cliam.Type: @cliam.Value</p>
+        }
+    </div> *@
+
+       @* Notificaciones *@
+            @if(User.Identity.IsAuthenticated){
+
+
+                var notificaciones = await _context.Notificaciones
+                    .Where(n => n.UsuarioId == User.GetId())
+                    .Select(n => new NotificacionViewModel{
+                        Id = n.Id,
+                        HiloId = n.HiloId,
+                        HiloTitulo = _context.Hilos.First(h => h.Id == n.HiloId).Titulo,
+                        HiloImagen = n.Hilo.Media.VistaPreviaCuadrado,
+                        ComentarioId = n.ComentarioId,
+                        Tipo = n.Tipo,
+                        Conteo = n.Conteo,
+                    })
+                    .AsNoTracking()
+                    .ToListAsync();
+
+                <script>
+                    window.notificaciones = @Json.Serialize(notificaciones)
+                </script>
+                
+                @* <div class="debug notdi-debug">
+                    @Json.Serialize(notificaciones)
+                </div> *@
+    }
+    <div id="svelte-navbar"></div>
+        @RenderBody()
+    </div>
+
+    @* <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer> *@
+
+
+    @* <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script> *@
+
+    @* <partial name="_ValidationScriptsPartial" /> *@
+    @* <script src="~/svelte/public/build/bundle.js"></script> *@
+    <div id="fondo-global" style="transform:translatez(0);-webkit-transform:translatez(0);"></div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿@model HiloListViewModel
+@inject IMediaService mediaService
+@{
+    ViewData["Title"] = "Home";
+}
+
+<main>
+    <script>
+        window.hiloList = @Json.Serialize(Model)
+    </script>
+    <div id="svelte-index"></div>
+
+
+@* 
+    <ul class="hilo-list">
+        @foreach (var hilo in Model.Hilos)
+        {
+            <li class="hilo">
+                @{ var media = hilo.Media?.VistaPreviaCuadrado ?? ""; }
+
+                <a asp-controller="Hilo" asp-action="Mostrar" asp-route-id="@hilo.Id" class="hilo-in">
+                    <img src="@media" alt="@hilo.Titulo" class="imghilo">
+                    <div class="infos">
+                        <div class="info" style="color:">@Constantes.GetCategoriaPorId(hilo.CategoriaId).NombreCorto</div>
+                        @if(hilo.Nuevo) {<div class="info" style="background:#18222D">Nuevo</div>}
+                        @if(hilo.Media.Tipo == MediaType.Video) {<div class="info" style="background:#18222D"><span class="fe fe-play"></span></div>}
+                        @if(hilo.Media.Tipo == MediaType.Youtube) {<div class="info" style="background:#fa2717"><span class="fe fe-play"></span></div>}
+                        @if(false) {<div class="info" ><span class="fe fe-bar-chart-2"></span></div>}
+                    </div>
+
+                    <div class="infos info-hover">
+                        <div class="info">@hilo.CantidadComentarios</div>
+
+                        <div class="acciones">
+                            <span class="fe fe-eye-off"></span>
+                            <span class="fe fe-flag"></span>
+                        </div>
+                    </div>
+
+                    <h3>@hilo.Titulo</h3>
+                </a>
+            </li>
+        }
+    </ul> *@
+</main>

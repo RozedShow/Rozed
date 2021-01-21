@@ -1,0 +1,16 @@
+{
+    "presets": [
+      [
+        "@babel/env",
+        {
+          "targets": {
+
+            "ios": "13"
+          }
+
+        }
+      ]
+    ],
+    "plugins": ["@babel/plugin-proposal-class-properties"]
+    
+  }

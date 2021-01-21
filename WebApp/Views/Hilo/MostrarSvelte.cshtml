@@ -1,0 +1,11 @@
+@model IHiloFullView
+@inject IMediaService mediaService
+@{
+    ViewData["Title"] = $"Rozed {Model.Hilo.Titulo}";
+}
+
+
+<script>
+    window.data = @Json.Serialize(Model)
+</script> 
+<main id="svelte"></main>
