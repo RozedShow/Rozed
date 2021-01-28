@@ -52,7 +52,7 @@ createdb rozed
 ```
 psql
 # se va a abrir una consola, peguen lo de abajo.
-ALTER USER postgres  WITH PASSWORD 'jejetabien'
+ALTER USER postgres  WITH PASSWORD 'jejetabien';
 \q
 ```
 ## Descargar Rozed
